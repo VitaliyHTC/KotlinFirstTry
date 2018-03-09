@@ -21,9 +21,11 @@ fun main(args: Array<String>) {
 
     val result = sum2(b1, b2)
 
-    printString1("sum of $a + $b1 = " + sum1(a, b1))
-    printString2("sum of $a + $b2 = " + sum2(a, b2))
+    printString1("sum of $a + $b1 = ${sum1(a, b1)}")
+    printString2("sum of $a + $b2 = ${sum2(a, b2)}")
     println("sum of $b1 + $b2 = $result")
+    printString3("4 - 5 = ${subtract(num2 = 5, num1 = 4)}")
+
     println("2 * $c = " + double(c))
 
     println()
@@ -46,7 +48,20 @@ fun main(args: Array<String>) {
     useRanges()
 
     println()
+    useConditionals()
+
+    println()
     useCollections()
+
+    println()
+    usePair()
+
+    println()
+    useVararg()
+
+    println()
+
+    block2()
 }
 
 
@@ -56,6 +71,9 @@ fun sum1(a: Int, b: Int): Int {
 
 fun sum2(a: Int, b: Int) = a + b
 
+//TODO: named params defaults
+fun subtract(num1: Int = 1, num2: Int = 1) = num1 - num2
+
 fun printString1(s: String): Unit {
     println(s)
 }
@@ -63,6 +81,10 @@ fun printString1(s: String): Unit {
 fun printString2(s: String) {
     println(s)
 }
+
+//TODO: Unit
+fun printString3(s: String): Unit = println(s)
+
 
 fun double(x: Int): Int {
     return 2 * x
@@ -176,13 +198,14 @@ fun useRanges() {
     useRanges2()
     useRanges3()
     useRanges4()
+    useRanges5()
 }
 
 fun useRanges1() {
     println("ranges1")
     val x = 10
     val y = 9
-    if (x in 1..y+1) {
+    if (x in 1..y + 1) {
         println("fits in range")
     }
 }
@@ -219,6 +242,41 @@ fun useRanges4() {
     }
 }
 
+fun useRanges5() {
+    println()
+    val oneToTen = 1..10
+
+    val alphabet = "A".."Z"
+
+    println("R in alphabet : ${"R" in alphabet}")
+
+    val tenToOne = 10.downTo(1)
+
+    val twoTo20 = 2.rangeTo(20)
+
+    val rng3 = oneToTen.step(3)
+
+    for (x in rng3) println("rng3 : $x")
+
+    for (x in tenToOne.reversed()) println("tenToOne.reversed() : $x")
+}
+
+fun useConditionals() {
+    val age = 8
+
+    //TODO: when conditional
+    when (age) {
+        0, 1, 2 -> println("Go home to parents")
+        3, 4 -> println("Go to Preschool")
+        5 -> println("Go to Kindergarten")
+        in 6..17 -> {
+            val grade = age - 5
+            println("Go to Grade $grade")
+        }
+        else -> println("Go to College")
+    }
+}
+
 fun useCollections() {
     println()
     println("Collections")
@@ -241,5 +299,34 @@ fun useCollections() {
             .sortedBy { it }
             .map { it.toUpperCase() }
             .forEach { println(it) }
+
+}
+
+//TODO: Pair usage. See Tuples.kt
+fun usePair() {
+    val (two, three) = nextTwo(1)
+    println("1 $two $three")
+}
+
+fun nextTwo(num: Int): Pair<Int, Int> {
+    return Pair(num + 1, num + 2)
+}
+
+
+//TODO: vararg usage
+fun useVararg() {
+    println("sum of 3 6 7 16 23 33 47 = ${getSum(3, 6, 7, 16, 23, 33, 47)}")
+}
+
+fun getSum(vararg nums: Int): Int {
+    var sum = 0
+
+    nums.forEach { n -> sum += n }
+
+    return sum
+}
+
+
+fun block2() {
 
 }
